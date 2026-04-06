@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+  3D Audio Visualizer — page shell
+
+  Structure (top to bottom in the DOM):
+  - #app: empty container; p5.js injects a full-window <canvas> here (WEBGL).
+  - #playbackControls: Pause/Play + hint; hidden until a track loads (see sketch.js).
+  - #uploadOverlay: centered card + “Choose file” button; hidden after successful load.
+  - #audioInput: real file picker, visually hidden; opened programmatically from the button.
+  - Scripts: p5 core, p5.sound (FFT + SoundFile), then sketch.js (your logic).
+
+  Load this file through a local server (e.g. python -m http.server) so audio APIs behave reliably.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Audio Visualizer MVP</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- p5 createCanvas(...).parent("app") attaches the WebGL canvas here. -->
+    <main id="app"></main>
+
+    <!-- Shown after load: toggles audio; sits above canvas (see z-index in style.css). -->
+    <div id="playbackControls" class="playback-controls" hidden>
+      <button id="pauseButton" type="button" aria-pressed="false">Pause</button>
+      <span class="playback-hint">Drag canvas to orbit · scroll to zoom</span>
+    </div>
+
+    <!-- Minimal overlay shown before audio starts -->
+    <section id="uploadOverlay" class="overlay">
+      <div class="overlay-card">
+        <h1>Upload an MP3 to begin</h1>
+        <p>Plug in a track and watch the scene react in real time.</p>
+        <button id="uploadButton" type="button">Choose Audio File</button>
+      </div>
+    </section>
+
+    <!-- Hidden input triggered by the visible upload button -->
+    <input
+      id="audioInput"
+      class="hidden-input"
+      type="file"
+      accept=".mp3,audio/*"
+      aria-label="Upload audio file"
+    />
+
+    <!-- p5 core + sound addon -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/addons/p5.sound.min.js"></script>
+    <script src="sketch.js"></script>
+  </body>
+</html>
