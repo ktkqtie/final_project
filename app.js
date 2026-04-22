@@ -282,6 +282,10 @@ function renderGraph(hourly, dayIndex) {
     return [x, y];
   });
 
+  const path = points
+    .map(([x, y], i) => (i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`))
+    .join(" ");
+
   let svgHTML = `
     <path d="${path}" fill="none" stroke="#86c9a6" stroke-width="3"
       stroke-linecap="round" stroke-linejoin="round" />
