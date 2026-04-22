@@ -236,6 +236,34 @@ body {
   overflow: visible;
 }
 
+.graph-point-group {
+  cursor: crosshair;
+}
+
+.hover-dot {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.graph-point-group:hover .hover-dot {
+  opacity: 1;
+}
+
+.graph-tooltip {
+  position: absolute;
+  background: rgba(59, 47, 38, 0.95);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(99, 70, 40, 0.2);
+}
+
 .graph-labels {
   display: flex;
   justify-content: space-between;

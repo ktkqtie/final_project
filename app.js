@@ -64,6 +64,7 @@ const els = {
   duckPlaceholder: document.getElementById("duckPlaceholder"),
 
   tempGraph: document.getElementById("tempGraph"),
+  graphTooltip: document.getElementById("graphTooltip"),
 
   dayTitle: document.getElementById("dayTitle"),
   dateLabel: document.getElementById("dateLabel"),
@@ -115,6 +116,30 @@ function init() {
     if (!row) return;
     const idx = parseInt(row.getAttribute("data-index"), 10);
     selectDay(idx);
+  });
+
+  els.tempGraph.addEventListener("mousemove", (e) => {
+    const group = e.target.closest(".graph-point-group");
+    if (group) {
+      const temp = group.getAttribute("data-temp");
+      const time = group.getAttribute("data-time");
+      
+      els.graphTooltip.textContent = `${time}: ${temp}°`;
+      els.graphTooltip.hidden = false;
+
+      const boxRect = els.tempGraph.parentElement.getBoundingClientRect();
+      const x = e.clientX - boxRect.left;
+      const y = e.clientY - boxRect.top;
+
+      els.graphTooltip.style.left = `${x}px`;
+      els.graphTooltip.style.top = `${y - 15}px`;
+    } else {
+      els.graphTooltip.hidden = true;
+    }
+  });
+
+  els.tempGraph.addEventListener("mouseleave", () => {
+    els.graphTooltip.hidden = true;
   });
 
   loadWeather().catch((err) => {
@@ -257,14 +282,31 @@ function renderGraph(hourly, dayIndex) {
     return [x, y];
   });
 
-  const path = points
-    .map(([x, y], i) => (i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`))
-    .join(" ");
-
-  svg.innerHTML = `
+  let svgHTML = `
     <path d="${path}" fill="none" stroke="#86c9a6" stroke-width="3"
       stroke-linecap="round" stroke-linejoin="round" />
   `;
+
+  const rectWidth = W / slice.length;
+
+  points.forEach(([x, y], i) => {
+    const tempF = hourly.temperature_2m[startIdx + i];
+    const temp = Math.round(convertTemp(tempF));
+    const timeStr = hourly.time[startIdx + i].slice(11, 16);
+    const hourNum = parseInt(timeStr.split(":")[0], 10);
+    const ampm = hourNum >= 12 ? 'pm' : 'am';
+    const hour12 = hourNum % 12 || 12;
+
+    svgHTML += `
+      <g class="graph-point-group" data-temp="${temp}" data-time="${hour12}${ampm}">
+        <rect x="${x - rectWidth/2}" y="0" width="${rectWidth}" height="${H}" fill="transparent" />
+        <line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="rgba(134, 201, 166, 0.4)" stroke-width="1" class="hover-dot" vector-effect="non-scaling-stroke" />
+        <circle cx="${x}" cy="${y}" r="3" fill="#fff" stroke="#86c9a6" stroke-width="2" class="hover-dot" vector-effect="non-scaling-stroke" />
+      </g>
+    `;
+  });
+
+  svg.innerHTML = svgHTML;
 }
 
 function renderForecast(daily) {

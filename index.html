@@ -60,7 +60,10 @@
         <div class="right-column">
           <section class="graph-box" aria-label="hourly temperature">
             <h3>hourly temperature</h3>
-            <svg id="tempGraph" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+            <div style="position: relative;">
+              <svg id="tempGraph" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+              <div id="graphTooltip" class="graph-tooltip" hidden></div>
+            </div>
             <div class="graph-labels">
               <span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>11p</span>
             </div>
