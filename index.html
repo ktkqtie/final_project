@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>duck weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="web-container">
+      <header class="web-header">
+        <div class="logo">duck weather</div>
+        <div class="controls">
+          <button id="unitToggle" class="chip" type="button" aria-label="Toggle units">
+            <span id="unitLabel">°F</span>
+          </button>
+
+          <button id="locationChip" class="chip location" type="button" aria-label="Change location">
+            <span class="pin">⌖</span>
+            <span id="locationLabel">boston</span>
+          </button>
+
+          <button id="notifyToggle" class="chip" type="button" aria-label="Toggle notifications">
+            <span id="bellIcon">🔔</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content-grid">
+        <!-- Left Column: Duck and Selected Day Details -->
+        <div class="left-column">
+          <section class="stage" aria-label="duck of the day">
+            <img id="duckImage" class="duck" alt="duck wearing weather-appropriate clothes" />
+            <div id="duckPlaceholder" class="duck-placeholder" aria-hidden="true">
+              <span>🦆</span>
+              <p>duck goes here</p>
+            </div>
+          </section>
+
+          <section class="today">
+            <h1 id="dayTitle">today</h1>
+            <p class="date" id="dateLabel">—</p>
+            <p class="temp"><span id="tempValue">--</span><span class="deg">°</span></p>
+            <p class="desc" id="descLabel">loading weather…</p>
+            <p class="extras">
+              <span>H: <span id="highLabel">--°</span></span>
+              <span class="sep">·</span>
+              <span>L: <span id="lowLabel">--°</span></span>
+              <span class="sep">·</span>
+              <span>💨 <span id="windLabel">-- m/s</span></span>
+            </p>
+          </section>
+        </div>
+
+        <!-- Right Column: Graph and Forecast -->
+        <div class="right-column">
+          <section class="graph-box" aria-label="hourly temperature">
+            <h3>hourly temperature</h3>
+            <svg id="tempGraph" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+            <div class="graph-labels">
+              <span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>11p</span>
+            </div>
+          </section>
+
+          <section class="forecast-box" aria-label="next days">
+            <h3>6-day forecast</h3>
+            <p class="hint">click a day to see the duck change!</p>
+            <div id="forecastList" class="forecast">
+              <!-- populated by JS -->
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
