@@ -1,10 +1,4 @@
-/*
- * duck weather — handwritten, cute, pastel
- * -----------------------------------------
- * Fonts: Patrick Hand for body, Caveat for big display numbers.
- * Background: soft peach → mint gradient, inspired by the reference sketchbook feel.
- */
-
+/* duck weather styles */
 * {
   box-sizing: border-box;
 }
@@ -24,7 +18,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ----- Layout ----- */
 .web-container {
   max-width: 900px;
   margin: 0 auto;
@@ -70,9 +63,11 @@ body {
     align-items: center;
     margin-bottom: 40px;
   }
+
   .controls {
     justify-content: flex-end;
   }
+
   .content-grid {
     grid-template-columns: 1fr 1fr;
     gap: 60px;
@@ -80,7 +75,6 @@ body {
   }
 }
 
-/* ----- top bar: unit toggle · location · bell ----- */
 .chip {
   border: none;
   background: rgba(255, 255, 255, 0.72);
@@ -111,7 +105,6 @@ body {
   font-size: 1.25rem;
 }
 
-/* ----- stage: duck with soft glow behind ----- */
 .stage {
   position: relative;
   height: 380px;
@@ -133,7 +126,6 @@ body {
 .duck {
   display: none;
   mix-blend-mode: multiply;
-  /* Push near-white backgrounds to pure white so they disappear completely */
   filter: contrast(1.1) brightness(1.05);
 }
 
@@ -163,7 +155,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* ----- today card ----- */
 .today {
   text-align: center;
   padding: 10px 8px 6px;
@@ -216,8 +207,8 @@ body {
   color: rgba(59, 47, 38, 0.35);
 }
 
-/* ----- Right Column Boxes ----- */
-.graph-box, .forecast-box {
+.graph-box,
+.forecast-box {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 24px;
   padding: 24px;
@@ -225,7 +216,8 @@ body {
   box-shadow: 0 4px 12px rgba(99, 70, 40, 0.04);
 }
 
-.graph-box h3, .forecast-box h3 {
+.graph-box h3,
+.forecast-box h3 {
   font-family: "Caveat", cursive;
   font-size: 1.8rem;
   margin: 0 0 16px;
@@ -238,7 +230,6 @@ body {
   margin: -10px 0 16px;
 }
 
-/* ----- temperature mini graph ----- */
 #tempGraph {
   width: 100%;
   height: 90px;
@@ -254,7 +245,6 @@ body {
   margin-top: 6px;
 }
 
-/* ----- forecast list ----- */
 .forecast {
   display: flex;
   flex-direction: column;
